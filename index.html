@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Codificación para mostrar correctamente tildes y la letra ñ. -->
+    <meta charset="UTF-8">
+    <!-- Permite que el diseño se adapte al ancho de los dispositivos móviles. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conoce el menú, los horarios y los datos de contacto del Restaurante Sabor Casero.">
+    <title>Restaurante Sabor Casero</title>
+
+    <!-- Ícono de la pestaña del navegador. SVG se ve nítido en cualquier tamaño. -->
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <!-- Color de la barra del navegador en celulares Android. -->
+    <meta name="theme-color" content="#843d29">
+
+    <!-- Open Graph: título, texto e imagen que aparecen al compartir el enlace
+         en WhatsApp, Facebook, etc. og:image debe ser una dirección completa (https://...).
+         Cuando el sitio esté publicado, agrega también:
+         <meta property="og:url" content="https://tu-dominio.com/"> -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CO">
+    <meta property="og:site_name" content="Restaurante Sabor Casero">
+    <meta property="og:title" content="Restaurante Sabor Casero">
+    <meta property="og:description" content="Comida casera para compartir en familia. Mira el menú y haz tu pedido por WhatsApp.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80">
+    <meta property="og:image:alt" content="Mesas y sillas en el interior de un restaurante">
+    <!-- Lo mismo para X (Twitter): tarjeta con imagen grande. -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Hoja de estilos separada del HTML. -->
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <!-- Encabezado: nombre del restaurante y enlaces internos de navegación. -->
+    <header>
+        <div class="contenedor">
+            <div class="cabecera-fila">
+                <div>
+                    <h1>Restaurante Sabor Casero</h1>
+                    <p class="descripcion">Comida casera para compartir en familia.</p>
+                </div>
+                <!-- Botón del menú en celulares. El CSS lo muestra solo si jQuery cargó
+                     y la pantalla es pequeña; aria-expanded indica si el menú está abierto. -->
+                <button type="button" class="boton-menu" aria-expanded="false" aria-controls="menu-principal">
+                    <span aria-hidden="true">&#9776;</span> Menú
+                </button>
+            </div>
+            <nav aria-label="Navegación principal">
+                <ul id="menu-principal">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#menu">Menú</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido principal. Solo se utiliza un elemento main en la página. -->
+    <main class="contenedor contenedor_main">
+        <section id="inicio" class="bienvenida" aria-labelledby="titulo-inicio">
+            <div>
+                <h2 id="titulo-inicio">Bienvenidos a nuestra mesa</h2>
+                <p>Somos un restaurante familiar que ofrece comida deliciosa todos los días.</p>
+                <p>Consulta nuestro menú y los horarios de atención antes de visitarnos.</p>
+                <a class="enlace-menu" href="#menu">Ver el menú</a>
+            </div>
+            <!-- Fotos ilustrativas externas: se necesita internet para cargarlas.
+                 El atributo alt describe la imagen si no se puede visualizar. -->
+            <img
+                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                alt="Mesas y sillas en el interior de un restaurante"
+                width="900"
+                height="675">
+        </section>
+
+        <!-- Cada plato es un artículo independiente con nombre, descripción y precio.
+             data-categoria indica a qué filtro pertenece.
+             data-id identifica el plato en el pedido y data-precio es el precio sin puntos. -->
+        <section id="menu" aria-labelledby="titulo-menu">
+            <h2 id="titulo-menu">Nuestro menú</h2>
+            <p class="nota">Precios en pesos colombianos. Fotografías de referencia.</p>
+
+            <!-- Filtros por categoría. Están ocultos (hidden) y jQuery los muestra;
+                 así, si JavaScript no carga, no quedan botones que no hacen nada. -->
+            <div class="filtros" role="group" aria-label="Filtrar el menú por categoría" hidden>
+                <button type="button" class="filtro" data-filtro="todos" aria-pressed="true">Todos</button>
+                <button type="button" class="filtro" data-filtro="rapida" aria-pressed="false">Comida rápida</button>
+                <button type="button" class="filtro" data-filtro="saludable" aria-pressed="false">Saludable</button>
+            </div>
+            <!-- Mensaje que leen los lectores de pantalla al cambiar de filtro. -->
+            <p id="resultado-filtro" class="solo-lectores" aria-live="polite"></p>
+
+            <article class="plato" data-categoria="rapida" data-id="hamburguesa" data-precio="18000">
+                <img
+                    src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&amp;fit=crop&amp;w=450&amp;q=80"
+                    alt="Hamburguesa con queso, tomate y lechuga"
+                    width="150" height="110" loading="lazy">
+                <div>
+                    <h3>Hamburguesa especial</h3>
+                    <p>Pan artesanal, carne, queso, tomate y lechuga.</p>
+                </div>
+                <p class="precio">$18.000</p>
+            </article>
+
+            <article class="plato" data-categoria="rapida" data-id="pizza" data-precio="35000">
+                <img
+                    src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&amp;fit=crop&amp;w=450&amp;q=80"
+                    alt="Pizza horneada con queso y diferentes ingredientes"
+                    width="150" height="110" loading="lazy">
+                <div>
+                    <h3>Pizza familiar</h3>
+                    <p>Pizza con queso y diferentes ingredientes para compartir.</p>
+                </div>
+                <p class="precio">$35.000</p>
+            </article>
+
+            <article class="plato ultimo-visible" data-categoria="saludable" data-id="ensalada" data-precio="12000">
+                <img
+                    src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&amp;fit=crop&amp;w=450&amp;q=80"
+                    alt="Ensalada de vegetales frescos en un recipiente"
+                    width="150" height="110" loading="lazy">
+                <div>
+                    <h3>Ensalada</h3>
+                    <p>Ensalada fresca con vegetales.</p>
+                </div>
+                <p class="precio">$12.000</p>
+            </article>
+
+            <!-- Panel del pedido. Está oculto y jQuery lo muestra y lo llena.
+                 data-whatsapp es el número que recibe los pedidos: código de país (57)
+                 seguido del celular, sin espacios ni el signo +. -->
+            <div id="pedido" class="pedido" data-whatsapp="573052778896" aria-labelledby="titulo-pedido" role="region" hidden>
+                <h3 id="titulo-pedido">Tu pedido</h3>
+                <p class="pedido-vacio">Aún no has agregado platos. Usa el botón «Agregar» de cada plato.</p>
+                <ul class="pedido-lista"></ul>
+                <p class="pedido-total">Total: <strong>$0</strong></p>
+
+                <label for="pedido-nombre">Tu nombre (opcional)</label>
+                <input id="pedido-nombre" type="text" autocomplete="name">
+
+                <label for="pedido-notas">Dirección de entrega o notas (opcional)</label>
+                <textarea id="pedido-notas" rows="3" placeholder="Ej.: Para recoger a las 7 p. m., sin cebolla."></textarea>
+
+                <div class="pedido-acciones">
+                    <button type="button" class="boton-whatsapp" disabled>Enviar pedido por WhatsApp</button>
+                    <button type="button" class="boton-secundario vaciar-pedido" disabled>Vaciar pedido</button>
+                </div>
+                <p class="nota">Se abrirá WhatsApp con tu pedido ya escrito. Solo tienes que enviarlo.</p>
+            </div>
+            <!-- Avisos del pedido para lectores de pantalla ("Pizza agregada..."). -->
+            <p id="aviso-pedido" class="solo-lectores" aria-live="polite"></p>
+
+            <p>¿Prefieres hablar con alguien? <a href="#contacto">Comunícate con nosotros</a>.</p>
+        </section>
+
+        <!-- Se agrega la sección Nosotros para que su enlace tenga un destino. -->
+        <section id="nosotros" aria-labelledby="titulo-nosotros">
+            <h2 id="titulo-nosotros">Sobre nosotros</h2>
+            <p>En Sabor Casero nos gusta la comida sencilla y el tiempo en familia. Nuestro menú reúne opciones para almorzar, cenar o compartir.</p>
+            <p>Nos encuentras en la Calle 1 # 2 - 3. ¡Te esperamos!</p>
+        </section>
+
+        <div class="informacion">
+            <!-- Una lista descriptiva relaciona cada grupo de días con su horario.
+                 data-dias: 0 = domingo ... 6 = sábado. data-abre/data-cierra: hora de 24 h. -->
+            <section id="horarios" aria-labelledby="titulo-horarios">
+                <h2 id="titulo-horarios">Horarios</h2>
+                <!-- jQuery escribe aquí si el restaurante está abierto ahora. -->
+                <p id="estado-horario" class="estado" aria-live="polite" hidden></p>
+                <dl class="horarios">
+                    <div data-dias="1,2,3,4,5" data-abre="11:00" data-cierra="21:00">
+                        <dt>Lunes a viernes</dt>
+                        <dd>11:00 a. m. – 9:00 p. m.</dd>
+                    </div>
+                    <div data-dias="6" data-abre="11:00" data-cierra="22:00">
+                        <dt>Sábados</dt>
+                        <dd>11:00 a. m. – 10:00 p. m.</dd>
+                    </div>
+                    <div data-dias="0" data-abre="12:00" data-cierra="20:00">
+                        <dt>Domingos</dt>
+                        <dd>12:00 p. m. – 8:00 p. m.</dd>
+                    </div>
+                </dl>
+            </section>
+
+            <!-- El enlace tel permite llamar desde un dispositivo compatible. -->
+            <section id="contacto" aria-labelledby="titulo-contacto">
+                <h2 id="titulo-contacto">Contacto</h2>
+                <address>
+                    <p><strong>Dirección:</strong><br>Calle 1 # 2 - 3</p>
+                    <p><strong>Teléfono:</strong><br>300 300 3000</p>
+                    <div class="contacto-acciones">
+                        <a class="enlace-menu" href="tel:+573003003000">Llamar para pedir</a>
+                        <a class="enlace-menu" href="https://wa.me/573003003000" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+                        <a class="boton-secundario" href="https://www.google.com/maps/dir/?api=1&amp;destination=Calle+1+%232-3" target="_blank" rel="noopener">Cómo llegar</a>
+                    </div>
+                </address>
+            </section>
+        </div>
+
+        <!-- Mapa de Google Maps. Para usar la ubicación exacta: busca el restaurante en
+             Google Maps → Compartir → Insertar un mapa, y copia aquí la dirección del src. -->
+        <section id="mapa" class="mapa" aria-labelledby="titulo-mapa">
+            <h2 id="titulo-mapa">Cómo encontrarnos</h2>
+            <iframe
+                src="https://www.google.com/maps?q=Calle+1+%232-3&amp;output=embed"
+                title="Mapa con la ubicación del Restaurante Sabor Casero"
+                width="1000" height="320"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
+    </main>
+
+    <!-- Pie de página con el nombre del sitio y aviso de derechos. -->
+    <footer class="contenedor">
+        <p>&copy; <span id="anio">2026</span> Restaurante Sabor Casero. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- jQuery desde su CDN oficial. integrity comprueba que el archivo no fue alterado. -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <!-- Código propio. Va después de jQuery porque lo necesita para funcionar. -->
+    <script src="js/main.js"></script>
+</body>
+</html>

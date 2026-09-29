@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Fondo con el color principal del sitio. -->
+  <rect width="64" height="64" rx="14" fill="#843d29"/>
+  <!-- Vapor. -->
+  <path d="M24 12c-3 4 3 6 0 10M32 10c-3 4 3 6 0 10M40 12c-3 4 3 6 0 10" fill="none" stroke="#faf7f2" stroke-width="3" stroke-linecap="round"/>
+  <!-- Plato hondo. -->
+  <path d="M10 30h44c0 12-9 20-22 20S10 42 10 30z" fill="#faf7f2"/>
+  <rect x="22" y="50" width="20" height="4" rx="2" fill="#faf7f2"/>
+</svg>
