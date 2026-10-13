@@ -1,0 +1,10 @@
+# Dependencias que instala npm
+node_modules/
+
+# Sitio compilado con "npm run build"
+dist/
+
+# Archivos del sistema y del editor
+.DS_Store
+Thumbs.db
+*.log
