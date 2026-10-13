@@ -4,6 +4,23 @@ Registro de las mejoras del sitio del Restaurante Sabor Casero, de la más recie
 
 ---
 
+## Versión 5 — 12 de octubre de 2026
+
+### Cambiado
+- **Migración de jQuery a Vue 3 + Vite.** La página se ve y funciona igual, pero ahora está dividida en componentes (`src/components/`).
+  - Los platos, horarios y datos de contacto pasaron de atributos `data-*` del HTML a archivos en `src/data/`.
+  - La lógica del pedido está en `src/composables/usePedido.js` y la del horario en `src/composables/useHorario.js`.
+  - Las animaciones de jQuery (`fadeIn`, `fadeOut`) se reemplazaron por `<Transition>` de Vue.
+  - El desplazamiento suave ahora descuenta la altura del encabezado fijo, para que las secciones no queden tapadas.
+- El CSS se movió a `src/assets/estilos.css` y el favicon a `public/favicon.svg`.
+- Para trabajar se usa `npm run dev`, y para publicar, `npm run build`.
+
+### Eliminado
+- jQuery y `js/main.js`.
+- La clase `js` en `<html>`: con Vue la página siempre necesita JavaScript. Si está desactivado, se muestra un aviso (`<noscript>`) con el teléfono y la dirección.
+
+---
+
 ## Versión 4 — 27 de septiembre de 2026
 
 ### Agregado
