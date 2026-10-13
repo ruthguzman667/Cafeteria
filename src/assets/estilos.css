@@ -83,7 +83,7 @@ button:focus-visible {
     outline-offset: 5px;
 }
 
-/* jQuery mueve el foco a títulos y secciones (tabindex="-1") para guiar a los
+/* Vue mueve el foco a títulos y secciones (tabindex="-1") para guiar a los
    lectores de pantalla; no son clicables, así que no necesitan recuadro. */
 [tabindex="-1"]:focus {
     outline: none;
@@ -180,7 +180,7 @@ nav a:hover {
     text-decoration: underline;
 }
 
-/* jQuery agrega la clase "activo" al enlace de la sección visible. */
+/* AppHeader.vue agrega la clase "activo" al enlace de la sección visible. */
 nav a.activo {
     color: var(--color-principal);
     font-weight: bold;
@@ -276,7 +276,7 @@ button:disabled {
    Menú y filtros
    -------------------------------------------------------------------------- */
 
-/* Botones de categoría. Solo aparecen cuando jQuery está disponible. */
+/* Botones de categoría para filtrar el menú. */
 .filtros {
     display: flex;
     flex-wrap: wrap;
@@ -314,8 +314,8 @@ button:disabled {
     border-bottom: 1px solid var(--color-borde-suave);
 }
 
-/* jQuery marca el último plato visible para quitarle el borde inferior. */
-.plato.ultimo-visible {
+/* El último plato visible no lleva borde inferior. */
+.platos .plato:last-child {
     border-bottom: 0;
 }
 
@@ -336,7 +336,7 @@ button:disabled {
     white-space: nowrap;
 }
 
-/* jQuery envuelve el precio y le agrega el botón "Agregar" debajo. */
+/* Precio con el botón "Agregar" debajo. */
 .plato-compra {
     display: flex;
     flex-direction: column;
@@ -479,7 +479,7 @@ button:disabled {
     background-color: #155d33;
 }
 
-/* Botón flotante con el resumen del pedido. Lo crea jQuery. */
+/* Botón flotante con el resumen del pedido (BotonPedido.vue). */
 .boton-pedido {
     position: fixed;
     left: 20px;
@@ -519,7 +519,7 @@ button:disabled {
     margin-bottom: 14px;
 }
 
-/* jQuery resalta la fila del día actual. */
+/* Se resalta la fila del día actual. */
 .horarios div.hoy dt::after {
     content: " (hoy)";
     color: var(--color-principal);
@@ -658,25 +658,57 @@ footer p {
         height: 260px;
     }
 
-    /* Menú hamburguesa: la clase "js" la pone jQuery al cargar.
-       Sin JavaScript, la navegación se sigue viendo completa. */
-    .js .boton-menu {
+    /* Menú hamburguesa: la lista se oculta y aparece el botón ☰. */
+    .boton-menu {
         display: inline-flex;
     }
 
-    .js nav ul {
+    nav ul {
         display: none;
         flex-direction: column;
         gap: 0;
     }
 
-    /* jQuery agrega la clase "abierta" al pulsar el botón. */
-    .js nav ul.abierta {
+    /* AppHeader.vue agrega la clase "abierta" al pulsar el botón. */
+    nav ul.abierta {
         display: flex;
     }
 
-    .js nav a {
+    nav a {
         width: 100%;
         border-top: 1px solid var(--color-borde-suave);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Transiciones de Vue (<Transition> y <TransitionGroup>)
+   -------------------------------------------------------------------------- */
+
+/* "fade": botón del pedido y botón "volver arriba" aparecen y desaparecen suavemente. */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+/* "aparecer": los platos que se muestran al cambiar de filtro. */
+.aparecer-enter-active {
+    transition: opacity 0.5s;
+}
+
+.aparecer-enter-from {
+    opacity: 0;
+}
+
+/* Si la persona pidió menos animaciones en su sistema, se quitan. */
+@media (prefers-reduced-motion: reduce) {
+    .fade-enter-active,
+    .fade-leave-active,
+    .aparecer-enter-active {
+        transition: none;
     }
 }
